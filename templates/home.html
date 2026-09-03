@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Your Resume | AI Resume Analyzer & ATS Intelligence</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-main: #0B1020;
+            --bg-surface: #121A2F;
+            --card-bg: #171F36;
+            --primary-blue: #3B82F6;
+            --accent-purple: #8B5CF6;
+            --accent-cyan: #22D3EE;
+            --success-color: #34D399;
+            --warning-color: #FBBF24;
+            --danger-color: #FB7185;
+            --text-main: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --border-color: #26324D;
+            --radius-lg: 20px;
+            --radius-md: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%),
+                linear-gradient(180deg, #0B1020 0%, #121A2F 100%);
+            background-attachment: fixed;
+            line-height: 1.5;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            padding: 0 1.25rem;
+        }
+
+        /* Minimal Header Navigation */
+        .navbar {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .brand-text {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        .brand-tagline-nav {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            background: rgba(148, 163, 184, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            margin-bottom: 2.25rem;
+            padding-top: 0.5rem;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            color: var(--accent-cyan);
+            padding: 6px 16px;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+        }
+
+        h1.hero-title {
+            font-size: 2.75rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+        }
+
+        h1.hero-title span {
+            background: linear-gradient(135deg, var(--text-main) 30%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 640px;
+            margin: 0 auto 1.25rem;
+            line-height: 1.6;
+        }
+
+        .hero-tagline {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--accent-purple);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* Main Form Card */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2.25rem;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 2.5rem;
+            backdrop-filter: blur(12px);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+        }
+
+        .section-num {
+            width: 26px;
+            height: 26px;
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+        }
+
+        /* Large Drag and Drop Zone */
+        .dropzone-large {
+            border: 2px dashed rgba(59, 130, 246, 0.4);
+            border-radius: var(--radius-md);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(18, 26, 47, 0.6);
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .dropzone-large:hover, .dropzone-large.dragover {
+            border-color: var(--accent-cyan);
+            background: rgba(34, 211, 238, 0.05);
+            box-shadow: 0 0 30px rgba(34, 211, 238, 0.15);
+        }
+
+        .upload-icon-box {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+            color: var(--accent-cyan);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.25);
+            transition: transform 0.3s ease;
+        }
+
+        .dropzone-large:hover .upload-icon-box {
+            transform: scale(1.08);
+        }
+
+        .upload-icon-svg {
+            width: 32px;
+            height: 32px;
+            fill: none;
+            stroke: var(--accent-cyan);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .upload-heading {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 0.4rem;
+            letter-spacing: -0.01em;
+        }
+
+        .upload-subtext {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .badge-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .format-pill {
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .pill-pdf { background: rgba(251, 113, 133, 0.15); color: var(--danger-color); border: 1px solid rgba(251, 113, 133, 0.3); }
+        .pill-docx { background: rgba(59, 130, 246, 0.15); color: var(--primary-blue); border: 1px solid rgba(59, 130, 246, 0.3); }
+        .pill-size { background: rgba(148, 163, 184, 0.15); color: var(--text-secondary); border: 1px solid rgba(148, 163, 184, 0.3); }
+
+        input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .selected-file-banner {
+            margin-top: 1.25rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            background: rgba(34, 211, 238, 0.1);
+            border: 1px solid rgba(34, 211, 238, 0.25);
+            padding: 0.65rem 1.25rem;
+            border-radius: var(--radius-md);
+            display: none;
+            word-break: break-all;
+        }
+
+        /* Textarea for Job Description */
+        .jd-textarea {
+            width: 100%;
+            min-height: 110px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            resize: vertical;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            outline: none;
+        }
+
+        .jd-textarea:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .jd-textarea::placeholder {
+            color: #475569;
+        }
+
+        /* Prominent Analyze Button */
+        .btn-analyze {
+            width: 100%;
+            margin-top: 1.75rem;
+            padding: 1.1rem 1.75rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            color: #ffffff;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn-analyze:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn-analyze:active {
+            transform: translateY(0);
+        }
+
+        /* Alert Banners */
+        .alert-box {
+            border-radius: var(--radius-md);
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.95rem;
+        }
+
+        .alert-error {
+            background-color: rgba(251, 113, 133, 0.12);
+            border: 1px solid rgba(251, 113, 133, 0.3);
+            color: var(--danger-color);
+        }
+
+        .alert-success {
+            background-color: rgba(52, 211, 153, 0.12);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            color: var(--success-color);
+        }
+
+        /* Clean Loading Overlay */
+        .loading-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(11, 16, 32, 0.92);
+            backdrop-filter: blur(12px);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .spinner-ring {
+            width: 64px;
+            height: 64px;
+            border: 4px solid rgba(59, 130, 246, 0.2);
+            border-top: 4px solid var(--accent-cyan);
+            border-right: 4px solid var(--accent-purple);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 25px rgba(34, 211, 238, 0.25);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 0.4rem;
+        }
+
+        .loading-step-text {
+            font-size: 0.95rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: auto;
+            padding: 2rem 0;
+        }
+
+        @media (max-width: 640px) {
+            h1.hero-title { font-size: 2rem; }
+            .brand-tagline-nav { display: none; }
+            .card { padding: 1.5rem; }
+            .dropzone-large { padding: 2rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Clean Loading Overlay -->
+    <div class="loading-modal" id="loadingModal">
+        <div class="spinner-ring"></div>
+        <div class="loading-title">Analyzing Resume & ATS Compatibility</div>
+        <div class="loading-step-text" id="loadingStepText">Reading your resume...</div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <a href="/" class="brand-container">
+            <div class="brand-icon">⚡</div>
+            <div class="brand-text">AI Resume Analyzer</div>
+        </a>
+        <div class="brand-tagline-nav">Analyze. Optimize. Get Job-Ready.</div>
+    </header>
+
+    <div class="container">
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-badge">
+                <span>✨</span> AI-Powered Resume & ATS Analytics
+            </div>
+            <h1 class="hero-title">Know What Your Resume Is <span>Really Saying.</span></h1>
+            <p class="hero-description">Upload your PDF or DOCX resume and get an instant AI-powered analysis with ATS keyword matching and actionable optimizations.</p>
+            <div class="hero-tagline">Analyze &bull; Optimize &bull; Get Job-Ready</div>
+        </section>
+
+        <!-- Alerts -->
+        {% if error_message %}
+        <div class="alert-box alert-error">
+            <span>⚠️</span>
+            <div><strong>Upload Error:</strong> {{ error_message }}</div>
+        </div>
+        {% endif %}
+
+        {% if success_message %}
+        <div class="alert-box alert-success">
+            <span>✅</span>
+            <div><strong>Success:</strong> {{ success_message }}</div>
+        </div>
+        {% endif %}
+
+        <!-- Main Upload Card -->
+        <div class="card">
+            <form action="/" method="POST" enctype="multipart/form-data" id="resumeForm">
+                {% csrf_token %}
+
+                <!-- Section 1: Upload Dropzone -->
+                <div class="section-header">
+                    <div class="section-num">1</div>
+                    <span>Resume Document</span>
+                </div>
+
+                <div class="dropzone-large" id="dropzone">
+                    <div class="upload-icon-box">
+                        <svg class="upload-icon-svg" viewBox="0 0 24 24">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="12" y1="18" x2="12" y2="12"></line>
+                            <polyline points="9 15 12 12 15 15"></polyline>
+                        </svg>
+                    </div>
+
+                    <div class="upload-heading">Upload Your Resume</div>
+                    <div class="upload-subtext">Upload your PDF or DOCX resume and get an instant AI-powered analysis.</div>
+
+                    <div class="badge-group">
+                        <span class="format-pill pill-pdf">PDF</span>
+                        <span class="format-pill pill-docx">DOCX</span>
+                        <span class="format-pill pill-size">Max 5 MB</span>
+                    </div>
+
+                    <input type="file" name="resume" id="resume_input" accept=".pdf,.docx" required>
+                    <div class="selected-file-banner" id="file_selected_info"></div>
+                </div>
+
+                <!-- Section 2: Optional Target Job Description -->
+                <div class="section-header">
+                    <div class="section-num">2</div>
+                    <span>Target Job Description (Optional for ATS Match)</span>
+                </div>
+
+                <textarea name="job_description" class="jd-textarea" placeholder="Paste target job description here to calculate ATS keyword match score and gap analysis..."></textarea>
+
+                <button type="submit" class="btn-analyze">
+                    <span>Analyze Resume</span>
+                    <span>➔</span>
+                </button>
+            </form>
+        </div>
+
+        <footer>
+            AI Resume Analyzer &bull; Portfolio Edition &bull; Django & Gemini AI
+        </footer>
+
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('resume_input');
+        const fileInfo = document.getElementById('file_selected_info');
+        const dropzone = document.getElementById('dropzone');
+        const resumeForm = document.getElementById('resumeForm');
+        const loadingModal = document.getElementById('loadingModal');
+        const loadingStepText = document.getElementById('loadingStepText');
+
+        if (fileInput) {
+            fileInput.addEventListener('change', function() {
+                if (fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                    fileInfo.textContent = `📎 Selected: ${file.name} (${sizeMB} MB)`;
+                    fileInfo.style.display = 'inline-block';
+                }
+            });
+
+            ['dragenter', 'dragover'].forEach(evt => {
+                dropzone.addEventListener(evt, e => { e.preventDefault(); dropzone.classList.add('dragover'); });
+            });
+
+            ['dragleave', 'drop'].forEach(evt => {
+                dropzone.addEventListener(evt, e => { e.preventDefault(); dropzone.classList.remove('dragover'); });
+            });
+        }
+
+        if (resumeForm) {
+            resumeForm.addEventListener('submit', function() {
+                loadingModal.style.display = 'flex';
+
+                const steps = [
+                    "Reading your resume...",
+                    "Extracting key information...",
+                    "Matching job requirements...",
+                    "Generating insights..."
+                ];
+
+                let stepIdx = 0;
+                setInterval(() => {
+                    stepIdx = (stepIdx + 1) % steps.length;
+                    loadingStepText.textContent = steps[stepIdx];
+                }, 350);
+            });
+        }
+    </script>
+</body>
+</html>
