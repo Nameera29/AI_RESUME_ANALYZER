@@ -5,3 +5,4 @@ python-dotenv==1.0.1
 gunicorn==23.0.0
 whitenoise==6.9.0
 pdfplumber
+python-docx
